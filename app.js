@@ -19,20 +19,17 @@ app.use(express.json());
 app.use(cors());
 app.use("/api", router);
 
+
 router.post("/register", authControllers.registerUser);
 router.post("/login", authControllers.login);
-router.get("/getRegistrationKey", authControllers.getRegistrationKey);
-router.get("/getLoginKey", authControllers.getLoginKey);
-router.get("/getQuestionKey", testControllers.getQuestionsKey)
 router.get("/protected-resource", authenticateToken.authenticateToken, (req,res) => {
     res.json({message: "Access granted to protected resource"});
 });
-router.get('/questions', testControllers.encryptedQuestion);
-router.post('/submit',testControllers.handlesubmit)
 
 
 
-const kingVar = "server is working";
+
+
 
 app.get("/", (req, res) => {
   res.send(kingVar);

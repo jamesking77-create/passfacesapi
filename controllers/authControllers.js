@@ -1,73 +1,40 @@
-const { User, cohortList } = require("../models/userModel");
+const { User} = require("../models/userModel");
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const privateKey = require("../utils/encryption");
 require('../utils/privateConfig');
-const secretKey = process.env.SECRET_KEY;
 
-let regkey = null;
-let logkey = null;
 
-const getRegistrationKey = async (req, res) => {
-  try {
-    let key = secretKey
-    console.log("this key 1:", key);
-    regkey = key;
-    return res.status(201).json(key);
-  } catch (err) {
-    return err;
-  }
-};
-
-const getLoginKey = async (req, res) => {
-  try {
-    let pkey = secretKey
-    console.log("this key 2:", pkey);
-    logkey = pkey;
-    return res.status(201).json(pkey);
-  } catch (err) {
-    return err;
-  }
-};
 
 async function registerUser(req, res, next) {
-    try {
-        const { data } = req.body;
-        const decryptedData = privateKey.decryptData(data, regkey);
-        const { username, cohort, password } = JSON.parse(decryptedData);
+  try {
+      const { username, password } = req.body;
 
-        if (!username || !password || !cohort) {
-            return res
-                .status(400)
-                .json({ message: "Please provide all required fields" });
-        }
-        if (!cohortList.values.includes(cohort)) {
-            return res.status(400).json({
-                message: "Invalid Cohort. Must be one of: 16, 17, 18, 19, 20",
-            });
-        }
+      if (!username || !password ) {
+          return res
+              .status(400)
+              .json({ message: "Please provide all required fields" });
+      }
+      const existingUser = await User.findOne({ username });
+      if (existingUser) {
+          return res
+              .status(409)
+              .json({ message: "User with this username already exists" });
+      }
+      const newUser = new User({ username, password});
+      await newUser.save();
 
-        const existingUser = await User.findOne({ username });
-        if (existingUser) {
-            return res
-                .status(409)
-                .json({ message: "User with this username already exists" });
-        }
-        const newUser = new User({ username, password, cohort });
-        await newUser.save();
-
-        return res.status(201).json({ message: "User registered successfully." });
-    } catch (err) {
-        return next(err);
-    }
+      return res.status(201).json({ message: "User registered successfully." });
+  } catch (err) {
+      return next(err);
+  }
 }
+
 
 async function login(req, res) {
     try {
-        const { data } = req.body;
-        const decryptedData = privateKey.decryptData(data, logkey);
-        const { username, password } = JSON.parse(decryptedData);
+        
+        const { username, password } =  req.body;
         const storedUser = await getUserFromDatabase(username);
         const comparePassword = await comparePasswords(
             password,
@@ -128,6 +95,4 @@ module.exports = {
   registerUser,
   login,
   protectedResource,
-  getRegistrationKey,
-  getLoginKey,
 };

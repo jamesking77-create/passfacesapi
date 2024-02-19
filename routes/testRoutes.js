@@ -115,13 +115,15 @@ const questionList = [
     ],
   },
 ];
-// Function to generate a random key
+
+
+
 function generateRandomKey() {
-  const randomKey = CryptoJS.lib.WordArray.random(16); // 16 bytes for a 128-bit key
+  const randomKey = CryptoJS.lib.WordArray.random(16); 
   return randomKey.toString();
 }
 
-// Function to encrypt data
+
 function encryptQuestions(data, key) {
   const encryptedData = CryptoJS.AES.encrypt(
     JSON.stringify(data),
@@ -130,31 +132,27 @@ function encryptQuestions(data, key) {
   return encryptedData;
 }
 
-  
-// Function to decrypt data
+
 function decryptQuestions(encryptedData, key) {
   const decryptedBytes = CryptoJS.AES.decrypt(encryptedData, key);
   const decryptedData = JSON.parse(decryptedBytes.toString(CryptoJS.enc.Utf8));
   return decryptedData;
 }
 
-// Generate a random key
+
 const encryptionKey = generateRandomKey();
 
-// Encrypt the questionList
 const encryptedQuestionList = encryptQuestions(questionList, encryptionKey);
 
-// Log the generated key
 console.log("Generated Encryption Key:", encryptionKey);
 
-// Log the encrypted questionList
+
 console.log("Encrypted Question List:", encryptedQuestionList);
 
-// Decrypt the questionList
+
 const decryptedQuestionList = decryptQuestions(
   encryptedQuestionList,
   encryptionKey
 );
 
-// Log the decrypted questionList
 console.log("Decrypted Question List:", decryptedQuestionList);
