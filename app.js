@@ -8,6 +8,8 @@ const testControllers  = require('./controllers/testControllers')
 const config = require('./config/config');
 const router = express.Router();
 const authenticateToken = require('./middleware/authentication')
+require('dotenv').config();
+
 
 mongoose.connect(config.mongodb.url);
 
