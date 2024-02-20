@@ -1,5 +1,5 @@
 {
-  "name": "proctoringsystem",
+  "name": "gui-auth",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -29,12 +29,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jamesking77-create/proctoring-system.git"
+    "url": "https://github.com/jamesking77-create/GUI-auth-backend.git"
   },
   "bugs": {
-    "url": "https://github.com/jamesking77-create/proctoring-system/issues"
+    "url": "https://github.com/jamesking77-create/GUI-auth-backend/issues"
   },
-  "homepage": "https://github.com/jamesking77-create/proctoring-system#readme",
+  "homepage": "https://github.com/jamesking77-create/GUI-auth-backend#readme",
   "description": "",
   "devDependencies": {
     "jest": "^29.7.0"
