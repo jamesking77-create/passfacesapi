@@ -1,31 +1,42 @@
 {
-  "name": "proctoringsystem",
+  "name": "gui-auth",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": " node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.31.2",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "cloudinary": "^1.41.3",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
+    "crypto-js": "^4.2.0",
+    "cryptojs": "^2.5.3",
+    "dotenv": "^16.4.5",
     "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.0.3"
+    "mongoose": "^8.0.3",
+    "node-rsa": "^1.1.1",
+    "nodemon": "^3.0.2"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jamesking77-create/proctoring-system.git"
+    "url": "https://github.com/jamesking77-create/passfacesapi.git"
   },
   "bugs": {
-    "url": "https://github.com/jamesking77-create/proctoring-system/issues"
+    "url": "https://github.com/jamesking77-create/passfacesapi/issues"
   },
-  "homepage": "https://github.com/jamesking77-create/proctoring-system#readme",
-  "description": ""
+  "homepage": "https://github.com/jamesking77-create/passfacesapi#readme",
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
