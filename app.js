@@ -11,7 +11,7 @@ const authenticateToken = require('./middleware/authentication')
 
 mongoose.connect(config.mongodb.url);
 
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT;
 
 
 
@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`.rainbow);
   });
-// app.use(bodyParser.json());
+
 
 const db = mongoose.connection;
 
