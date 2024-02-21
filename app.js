@@ -8,24 +8,29 @@ const testControllers  = require('./controllers/testControllers')
 const config = require('./config/config');
 const router = express.Router();
 const authenticateToken = require('./middleware/authentication')
-require('dotenv').config();
-
 
 mongoose.connect(config.mongodb.url);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
+
+
 
 app.use(express.json());
 app.use(cors());
 app.use("/api", router);
 
-router.post("/register", authControllers.registerUser);
-router.post("/login", authControllers.login);
+
+app.post("/register", authControllers.registerUser);
+app.post("/login", authControllers.login);
 router.get("/protected-resource", authenticateToken.authenticateToken, (req,res) => {
     res.json({message: "Access granted to protected resource"});
 });
 
-// New route for /hello
+
+
+
+
+
 app.get("/hello", (req, res) => {
   res.send("hello my bro");
 });
@@ -33,6 +38,7 @@ app.get("/hello", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`.rainbow);
   });
+
 
 const db = mongoose.connection;
 
@@ -45,3 +51,5 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Internal server this error" });
 });
+
+
