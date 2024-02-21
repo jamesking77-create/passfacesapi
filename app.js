@@ -13,7 +13,7 @@ require('dotenv').config();
 
 mongoose.connect(config.mongodb.url);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
@@ -21,27 +21,27 @@ app.use("/api", router);
 
 router.post("/register", authControllers.registerUser);
 router.post("/login", authControllers.login);
-router.get("/protected-resource", authenticateToken.authenticateToken, (req, res) => {
-    res.json({ message: "Access granted to protected resource" });
+router.get("/protected-resource", authenticateToken.authenticateToken, (req,res) => {
+    res.json({message: "Access granted to protected resource"});
 });
 
-
-router.get("/hello", (req, res) => {
-    res.send("Hello my bro");
+// New route for /hello
+app.get("/hello", (req, res) => {
+  res.send("hello my bro");
 });
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`.rainbow);
-});
+  });
 
 const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => {
-    console.log("Connected to MongoDB".green);
+  console.log("Connected to MongoDB".green);
 });
 
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ message: "Internal server error" });
+  console.error(err.stack);
+  res.status(500).json({ message: "Internal server this error" });
 });
