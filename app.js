@@ -22,7 +22,7 @@ app.use("/api", router);
 
 app.post("/register", authControllers.registerUser);
 app.post("/login", authControllers.login);
-router.get("/protected-resource", authenticateToken.authenticateToken, (req,res) => {
+app.get("/protected-resource", authenticateToken.authenticateToken, (req,res) => {
     res.json({message: "Access granted to protected resource"});
 });
 
